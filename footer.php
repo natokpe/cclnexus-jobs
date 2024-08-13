@@ -7,7 +7,6 @@ use NatOkpe\Wp\Theme\Nexusdream\Theme;
 
         ?><div class="backtotop">
             <i class="fas fa-chevron-up"></i>
-            <i class="fas fa-chevron-up"></i>
         </div>
 
         <?php wp_footer(); ?>

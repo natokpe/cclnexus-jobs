@@ -23,13 +23,13 @@ module.exports = ( env, options ) => {
         resolve: {
         },
 
-        // plugins: [
-        //     new webpack.ProvidePlugin({
-        //         $               : 'jquery',
-        //         jQuery          : 'jquery',
-        //         'window.jQuery' : 'jquery',
-        //         // _map            : ['lodash', 'map'],
-        //     })
-        // ],
+        plugins: [
+            new webpack.ProvidePlugin({
+                $               : 'jquery',
+                jQuery          : 'jquery',
+                'window.jQuery' : 'jquery',
+                // _map            : ['lodash', 'map'],
+            })
+        ],
     };
 };

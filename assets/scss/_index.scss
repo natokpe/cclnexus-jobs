@@ -2,8 +2,6 @@
 
 @use "wp_header_comment";
 
-// @charset "UTF-8";
-
 @use "bootstrap/scss/bootstrap.scss" with (
     $body-bg:            $color-white,
     $primary:            $color-primary,
@@ -11,11 +9,8 @@
     $link-hover-color:   $color-black,
     $breadcrumb-divider: quote("/"),
     $grid-gutter-width:  2.31rem, // default 1.5
+    $accordion-border-radius: 0,
 );
 
-// @use "fonts";
-@use "content-frame";
-// @use "buttons";
-// @use "forms";
-// @use "common";
-// @use "footer";
+@use "fonts";
+@use "common";

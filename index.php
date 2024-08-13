@@ -9,8 +9,6 @@ use NatOkpe\Wp\Theme\Nexusdream\Theme;
 
 Theme::add_body_classes('navbar-float');
 
-while (have_posts()): the_post();
-
 get_header();
 ?>
 <div class="content-frame">
@@ -34,5 +32,3 @@ get_template_part('tpl/parts/contact');
 <?php
 
 get_footer();
-
-endwhile;

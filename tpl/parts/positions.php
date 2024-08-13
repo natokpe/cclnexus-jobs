@@ -3,25 +3,23 @@ declare(strict_types = 1);
 
 use NatOkpe\Wp\Theme\Nexusdream\Theme;
 
-$cnt = [
-    'jobs' => new WP_Query([
-        'has_password' => false,
-        'post_type'    => 'job_position',
-        'post_status'  => 'publish',
-        'nopaging'     => true,
-        // 'meta_key'     => 'user_id',
-        // 'meta_value'   => $cnt['user']->ID,
-        'order'        => 'ASC',
-        'order_by'     => 'title',
-    ]),
-];
+$query = new WP_Query([
+    'post_type'           => 'job_position',
+    'post_status'         => 'publish',
+    'has_password'        => false,
+    'ignore_sticky_posts' => false,
+    'order'               => 'DESC',
+    'orderby'             => 'date',
+    'nopaging'            => true,
+    'paged'               => false,
+]);
 
 ?>
-<section id="jobs" name="jobs" class="page-section py-4">
+<section id="jobs" name="jobs" class="page-section py-5">
     <div  class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="page-section-heading text-center">Available Positions</h2>
+                <h2 class="page-section-heading text-center pt-4">Available Positions</h2>
             </div>
         </div>
 
@@ -29,61 +27,41 @@ $cnt = [
             <div class="col-12 col-lg-9 col-xl-8">
 
                 <div class="accordion accordion-flush border-top border-bottom" id="accordionFlushExample">
+
+<?php
+while ($query->have_posts()) {
+    $query->the_post();
+?>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">Production Manager</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-<?php echo get_the_ID(); ?>" aria-expanded="false" aria-controls="flush-collapse-<?php echo get_the_ID(); ?>">Production Manager</button>
                         </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapse-<?php echo get_the_ID(); ?>" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <h3>Job Description</h3>
-                                <p>Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</p>
+                                <div class="mb-4"><?php echo get_post_meta(get_the_ID(), 'job_desc', true); ?></div>
 
                                 <h3>Responsibilities</h3>
-                                <p>Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</p>
+                                <div class="mb-4"><?php echo get_post_meta(get_the_ID(), 'job_resp', true); ?></div>
 
                                 <h3>Requirements</h3>
-                                <p>Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</p>
-
+                                <div class="mb-4"><?php echo get_post_meta(get_the_ID(), 'job_req', true); ?></div>
+<!-- 
                                 <h3>Benefits</h3>
-                                <p>Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</p>
-
+                                <div class="mb-3"><?php echo get_post_meta(get_the_ID(), 'job_ben', true); ?></div>
+ -->
                                 <div>
-                                    <a href="#" type="button" class="btn btn-primary">Apply for this</a>
+                                    <a href="<?php echo add_query_arg(['jpos' => get_the_ID()], get_page_link(Theme::page('apply'))); ?>" type="button" class="btn btn-primary px-3">Apply</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Secretary</button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <h3>Job Description</h3>
-                                <p>Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</p>
-                                <div>
-                                    <a href="#" type="button" class="btn btn-primary">Apply for this</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<?php
+}
+wp_reset_postdata();
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">Production Manager</button>
-                        </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <h3>Job Description</h3>
-                                <p>Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</p>
-                                <div>
-                                    <a href="#" type="button" class="btn btn-primary">Apply for this</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+?>
                 </div>
 
             </div>

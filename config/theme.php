@@ -17,8 +17,8 @@ return [
         'post-thumbnails'                     => [
             'page',
             'post',
-            'job-position',
-            'job-application',
+            'job_position',
+            'job_application',
             'faq'
         ],
         'post-formats'                        => [],
