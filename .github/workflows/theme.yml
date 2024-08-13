@@ -53,7 +53,7 @@ jobs:
     - name: Package build
       uses: actions/upload-artifact@v4
       with:
-        name: no-impact
+        name: no-nexusdream
         path: |
           .
           !.git
@@ -77,7 +77,7 @@ jobs:
     - name: Retrieve packaged build
       uses: actions/download-artifact@v4
       with:
-        name: no-impact
+        name: no-nexusdream
         path: |
           dist
 
