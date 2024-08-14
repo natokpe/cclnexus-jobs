@@ -51,7 +51,7 @@ foreach (((new WP_Query([
     'post_status'         => 'publish',
     'has_password'        => false,
     'ignore_sticky_posts' => false,
-    'order'               => 'DESC',
+    'order'               => 'ASC',
     'orderby'             => 'date',
     'nopaging'            => true,
     'paged'               => false,

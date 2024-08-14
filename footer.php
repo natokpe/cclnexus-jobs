@@ -10,5 +10,6 @@ use NatOkpe\Wp\Theme\Nexusdream\Theme;
         </div>
 
         <?php wp_footer(); ?>
+        <script type="text/javascript">alert($('#jobs'.attr('id')));</script>
     </body>
 </html>

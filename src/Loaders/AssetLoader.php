@@ -86,14 +86,14 @@ class AssetLoader
      * 
      */
     public
-    function addScript(string|int $handle, array $params = []): self
+    function addScript(string|int $handle, ?array $params = []): self
     {
-        $this->_scripts[(string) $handle] = [
+        $this->_scripts[(string) $handle] = is_array($params) ? [
             'src'    => (string) ($params['src'] ?? ''),
             'deps'   => (array) ($params['deps'] ?? []),
             'ver'    => $params['ver'] ?? false,
             'footer' => (bool) ($params['footer'] ?? true),
-        ];
+        ] : null;
 
         return $this;
     }
@@ -148,13 +148,17 @@ class AssetLoader
         add_action('wp_enqueue_scripts', function () use ($exclude) {
             foreach ($this->_scripts as $handle => $_) {
                 if (! in_array($handle, $exclude, true)) {
-                    wp_enqueue_script(
-                        $handle,
-                        $_['src'],
-                        $_['deps'],
-                        $_['ver'],
-                        $_['footer']
-                    );
+                    if (is_array($_)) {
+                        wp_enqueue_script(
+                            $handle,
+                            $_['src'],
+                            $_['deps'],
+                            $_['ver'],
+                            $_['footer']
+                        );
+                    } else {
+                        wp_enqueue_script($handle);
+                    }
 
                     $loaded[$handle] = $_;
                  }

@@ -4,7 +4,9 @@ declare(strict_types = 1);
 use NatOkpe\Wp\Theme\Nexusdream\Theme;
 
 $styles = [];
-$scripts = [];
+$scripts = [
+    'jquery' => null,
+];
 
 $styles['no-nexusdream'] = [
     'src'   => Theme::url('style.css'),
